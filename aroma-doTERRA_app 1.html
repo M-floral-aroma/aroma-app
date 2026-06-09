@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>dōTERRA 精油図鑑</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream:   #FAF7F2;
+  --petal:   #F5EEE8;
+  --blush:   #EDE0D8;
+  --rose:    #C8948A;
+  --sage:    #8AAE8A;
+  --taupe:   #9A8878;
+  --ink:     #3A3028;
+  --muted:   #9A8A80;
+  --divider: #E8DDD6;
+
+  --floral:  #C48FA8;
+  --woody:   #A8845C;
+  --citrus:  #D4A040;
+  --herbal:  #7AA878;
+  --spicy:   #C06848;
+  --earthy:  #8A7050;
+  --blend:   #7A90A8;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(160deg, #F8F0EC 0%, #EDE4DC 100%);
+  padding: 2.4rem 1.5rem 1.8rem;
+  border-bottom: 1px solid var(--blush);
+  position: relative;
+  overflow: hidden;
+}
+header::after {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E8C4B8 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.header-inner { max-width: 480px; margin: 0 auto; position: relative; }
+.header-brand {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.5rem;
+}
+header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+header h1 em { font-style: italic; color: var(--rose); }
+.header-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-top: 0.45rem;
+}
+
+/* ── CONTROLS ── */
+.controls {
+  background: var(--cream);
+  border-bottom: 1px solid var(--divider);
+  padding: 1rem 1.5rem;
+  position: sticky; top: 0; z-index: 50;
+  box-shadow: 0 2px 12px rgba(180,140,120,0.07);
+}
+.controls-inner { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.8rem; }
+
+.search-wrap { position: relative; }
+.search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--taupe); pointer-events: none; }
+#searchInput {
+  width: 100%;
+  padding: 0.6rem 1rem 0.6rem 2.2rem;
+  border: 1.5px solid var(--blush);
+  border-radius: 24px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem; font-weight: 300;
+  color: var(--ink); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#searchInput:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(200,148,138,0.12); }
+#searchInput::placeholder { color: var(--taupe); }
+
+.filter-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.filter-row { display: flex; gap: 0.35rem; flex-wrap: wrap; align-items: center; }
+.filter-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--taupe); min-width: 26px; }
+.filter-btn {
+  padding: 0.25rem 0.7rem;
+  border: 1.5px solid var(--blush);
+  border-radius: 20px;
+  background: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; font-weight: 300;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.18s; white-space: nowrap;
+}
+.filter-btn:hover { border-color: var(--rose); color: var(--rose); background: #fff8f6; }
+.filter-btn.active { background: var(--rose); border-color: var(--rose); color: #fff; font-weight: 400; }
+
+/* ── TYPE TABS ── */
+.type-tabs { padding: 0 1.5rem; border-bottom: 1px solid var(--divider); background: var(--cream); }
+.type-tabs-inner { display: flex; gap: 1.5rem; max-width: 480px; margin: 0 auto; }
+.type-tab {
+  padding: 0.7rem 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; font-weight: 300;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); background: none; border: none;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  cursor: pointer; transition: all 0.18s;
+}
+.type-tab.active { color: var(--rose); border-bottom-color: var(--rose); font-weight: 500; }
+
+/* ── GRID ── */
+.grid-wrap { max-width: 480px; margin: 0 auto; padding: 1rem; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+
+/* ── CARD ── */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.2rem 1rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(160,120,100,0.08);
+  transition: transform 0.22s, box-shadow 0.22s;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(232,221,214,0.6);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 16px 16px 0 0;
+  background: var(--accent, #C8948A);
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(160,120,100,0.15);
+}
+/* scent bg tint on card */
+.card-tint {
+  position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  border-radius: 0 16px 0 60px;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.card-illust-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding: 0.5rem 0 0;
+  pointer-events: none;
+}
+.card-illust {
+  width: 38px;
+  height: 56px;
+  transition: transform 0.22s;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.18));
+  pointer-events: none;
+}
+.card:hover .card-illust { transform: translateY(-4px); }
+
+.card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; font-weight: 500;
+  color: var(--ink); line-height: 1.2;
+  margin-bottom: 0.15rem;
+}
+.card-latin {
+  font-size: 0.63rem; font-style: italic;
+  color: var(--taupe);
+  margin-bottom: 0.55rem; line-height: 1.3;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.card-tag {
+  font-size: 0.6rem; letter-spacing: 0.06em;
+  color: #fff; text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: 10px;
+}
+.card-blend-mark {
+  position: absolute; top: 0.7rem; right: 0.8rem;
+  font-size: 0.52rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--taupe);
+  background: var(--petal); padding: 0.1rem 0.35rem; border-radius: 6px;
+}
+
+.card-methods {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.method-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  color: var(--taupe);
+  background: var(--petal);
+  border-radius: 10px;
+  padding: 0.15rem 0.45rem;
+}
+.method-badge svg { flex-shrink: 0; }
+#modalMethods .method-badge {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 14px;
+  gap: 0.3rem;
+}
+  grid-column: 1/-1; padding: 4rem 2rem; text-align: center;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 1.1rem; color: var(--taupe);
+}
+
+/* ── MODAL (styled via JS) ── */
+#overlay {
+  display: none;
+}
+#modal {
+  background: var(--cream);
+  width: 100%;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 1.5rem 1.5rem 3rem;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.25);
+  position: relative;
+}
+#modalClose {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--blush);
+  border: none;
+  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--taupe);
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+  transition: background 0.15s;
+}
+#modalClose:hover { background: var(--rose); color: #fff; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute; right: 1.25rem; top: 1.25rem;
+  background: var(--blush); border: none; border-radius: 50%;
+  width: 30px; height: 30px; font-size: 1rem;
+  color: var(--taupe); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--rose); color: #fff; }
+
+.modal-scent-line { width: 28px; height: 2px; border-radius: 2px; margin-bottom: 1rem; }
+.modal-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 400; color: var(--ink);
+  line-height: 1.1; margin-bottom: 0.25rem;
+}
+.modal-latin { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--taupe); margin-bottom: 1rem; }
+.modal-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+.modal-badge {
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; padding: 0.2rem 0.6rem; border-radius: 12px;
+}
+
+.modal-section { margin-bottom: 1.3rem; }
+.modal-section-title { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.4rem; }
+.modal-section p { font-size: 0.875rem; line-height: 1.75; color: var(--ink); font-weight: 300; }
+.modal-divider { height: 1px; background: var(--divider); margin: 1.3rem 0; }
+
+.blend-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.blend-tag {
+  font-size: 0.7rem; color: var(--taupe);
+  padding: 0.22rem 0.65rem;
+  border: 1.5px solid var(--blush); border-radius: 20px;
+  background: #fff;
+}
+
+.doterra-note {
+  margin-top: 1.2rem; padding: 0.9rem 1rem;
+  background: var(--petal); border-radius: 10px;
+  border-left: 3px solid var(--rose);
+  font-size: 0.78rem; line-height: 1.7; color: var(--taupe);
+}
+.doterra-note strong {
+  display: block; font-size: 0.6rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--rose);
+  margin-bottom: 0.3rem; font-weight: 500;
+}
+
+/* ── AI SECTION ── */
+.ai-section { margin-top: 1.4rem; padding-top: 1.3rem; border-top: 1px solid var(--divider); }
+.ai-section-title { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.7rem; }
+.ai-response { font-size: 0.84rem; line-height: 1.75; color: var(--ink); min-height: 48px; }
+.ai-hint { font-size: 0.78rem; color: var(--taupe); font-style: italic; }
+
+.ai-ask-btn {
+  margin-top: 0.85rem; width: 100%; padding: 0.75rem;
+  background: linear-gradient(135deg, var(--rose), #B87870);
+  color: #fff; border: none; border-radius: 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: opacity 0.18s;
+  box-shadow: 0 3px 12px rgba(200,148,138,0.3);
+}
+.ai-ask-btn:hover { opacity: 0.88; }
+
+.ai-question-wrap { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.ai-question-input {
+  flex: 1; padding: 0.55rem 1rem;
+  border: 1.5px solid var(--blush); border-radius: 20px;
+  background: #fff; font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 300; color: var(--ink); outline: none;
+  transition: border-color 0.18s;
+}
+.ai-question-input:focus { border-color: var(--rose); }
+.ai-question-input::placeholder { color: var(--taupe); }
+.ai-send-btn {
+  background: var(--sage); border: none; border-radius: 50%;
+  width: 34px; height: 34px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.18s;
+}
+.ai-send-btn:hover { background: #6A9868; }
+
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: transparent; }
+.modal::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 4px; }
+
+/* scrollbar */
+.modal::-webkit-scrollbar { width: 4px; }
+.modal::-webkit-scrollbar-track { background: transparent; }
+.modal::-webkit-scrollbar-thumb { background: var(--divider); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-brand">dōTERRA</div>
+    <h1>精油 <em>図鑑</em></h1>
+    <div class="header-sub">Essential Oil Reference</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="名前・効能・香りで絞り込む">
+    </div>
+    <div class="filter-group">
+      <div class="filter-row">
+        <span class="filter-label">香り</span>
+        <button class="filter-btn active" data-scent="all">すべて</button>
+        <button class="filter-btn" data-scent="floral" data-color="#C48FA8">フローラル</button>
+        <button class="filter-btn" data-scent="citrus" data-color="#D4A040">シトラス</button>
+        <button class="filter-btn" data-scent="woody"  data-color="#A8845C">ウッディ</button>
+        <button class="filter-btn" data-scent="herbal" data-color="#7AA878">ハーバル</button>
+        <button class="filter-btn" data-scent="spicy"  data-color="#C06848">スパイシー</button>
+        <button class="filter-btn" data-scent="earthy" data-color="#8A7050">アーシー</button>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">目的</span>
+        <button class="filter-btn active" data-effect="all">すべて</button>
+        <button class="filter-btn" data-effect="relax" data-color="#C48FA8">リラックス</button>
+        <button class="filter-btn" data-effect="focus" data-color="#7A98B8">集中</button>
+        <button class="filter-btn" data-effect="sleep" data-color="#8A7AAA">睡眠</button>
+        <button class="filter-btn" data-effect="energy" data-color="#D4A040">活力</button>
+        <button class="filter-btn" data-effect="skin" data-color="#C87890">スキンケア</button>
+        <button class="filter-btn" data-effect="immune" data-color="#7AAA88">免疫</button>
+        <button class="filter-btn" data-effect="digest" data-color="#C88858">消化</button>
+        <button class="filter-btn" data-effect="breath" data-color="#6AAAB0">呼吸</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="type-tabs">
+  <div class="type-tabs-inner">
+    <button class="type-tab active" data-type="all">すべて</button>
+    <button class="type-tab" data-type="single">シングル</button>
+    <button class="type-tab" data-type="blend">ブレンド</button>
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- MODAL -->
+<div id="overlay">
+  <div id="modal">
+    <button id="modalClose">✕ 閉じる</button>
+    <div class="modal-scent-line" id="modalScentLine"></div>
+    <div class="modal-name" id="modalName"></div>
+    <div class="modal-latin" id="modalLatin"></div>
+    <div class="modal-badges" id="modalBadges"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">香りの特徴</div>
+      <p id="modalScent"></p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">主な効能</div>
+      <p id="modalEffects"></p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">使い方</div>
+      <div class="card-methods" id="modalMethods" style="margin-bottom:0.6rem;"></div>
+      <p id="modalUsage"></p>
+    </div>
+    <div class="modal-divider"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">相性の良い精油</div>
+      <div class="blend-list" id="modalBlends"></div>
+    </div>
+    <div class="doterra-note" id="modalNote"></div>
+    <div class="ai-section">
+      <div class="ai-section-title">Claudeに質問する</div>
+      <div class="ai-response" id="aiResponse">
+        <span class="ai-hint">ボタンを押すと質問文がコピーされます。Claude.ai に貼り付けてご利用ください。</span>
+      </div>
+      <button class="ai-ask-btn" id="aiAskBtn">おすすめの使い方・ブレンドをコピー</button>
+      <div class="ai-question-wrap">
+        <input type="text" class="ai-question-input" id="aiQuestionInput" placeholder="自由に質問する">
+        <button class="ai-send-btn" id="aiSendBtn">コピー</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCENT_COLORS = {
+  floral:'#B8A0A8', woody:'#9C8870', citrus:'#C8A84A',
+  herbal:'#7A9E78', spicy:'#B86848', earthy:'#8A7050', blend:'#6A8898'
+};
+const SCENT_LABELS = {
+  floral:'フローラル', woody:'ウッディ', citrus:'シトラス',
+  herbal:'ハーバル', spicy:'スパイシー', earthy:'アーシー', blend:'ブレンド系'
+};
+const EFFECT_LABELS = {
+  relax:'リラックス', focus:'集中', sleep:'睡眠', energy:'活力',
+  skin:'スキンケア', immune:'免疫', digest:'消化', breath:'呼吸'
+};
+const EFFECT_COLORS = {
+  relax:  '#C48FA8',  // やわらかいラベンダーピンク
+  focus:  '#7A98B8',  // 落ち着いたブルー
+  sleep:  '#8A7AAA',  // 深みのあるモーブ
+  energy: '#D4A040',  // 明るいゴールド
+  skin:   '#C87890',  // ローズ
+  immune: '#7AAA88',  // セージグリーン
+  digest: '#C88858',  // ウォームオレンジ
+  breath: '#6AAAB0',  // アクアティール
+};
+
+const OILS = [
+  // ── シングルオイル ──
+  {
+    id:1, type:'single', name:'ラベンダー', latin:'Lavandula angustifolia',
+    scent:'floral', effects:['relax','sleep','skin'],
+    scentDesc:'甘くフローラルで、清涼感のあるハーブの余韻。穏やかで万能な香り。',
+    effectDesc:'緊張・不安の緩和、睡眠の質向上。皮膚の炎症・虫刺されのケアにも。',
+    usage:'就寝前に枕に1〜2滴。虫刺されに直接塗布。ディフューザーで空間に広げる。',
+    blends:['ベルガモット','ローマンカモミール','ゼラニウム','フランキンセンス'],
+    note:'dōTERRAのラベンダーはブルガリア産。最も幅広く使える入門オイル。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:2, type:'single', name:'ペパーミント', latin:'Mentha × piperita',
+    scent:'herbal', effects:['focus','energy','breath'],
+    scentDesc:'鮮烈なメントールの清涼感。スッキリと力強い刺激。',
+    effectDesc:'集中力・覚醒向上。頭痛・体熱感の緩和。消化促進、呼吸サポート。',
+    usage:'こめかみや首の後ろに少量。朝のディフューザーに。飲み物に1滴（飲用グレード）。',
+    blends:['レモン','ユーカリ','ラベンダー','ワイルドオレンジ'],
+    note:'皮膚への使用は必ずキャリアオイルで希釈。6歳以下の子どもへは使用注意。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:3, type:'single', name:'フランキンセンス', latin:'Boswellia sacra',
+    scent:'earthy', effects:['relax','sleep','skin'],
+    scentDesc:'深く温かみのある樹脂香。スモーキーで神聖な落ち着き。',
+    effectDesc:'深い瞑想・内省状態へ。細胞の健康サポート、エイジングケア。',
+    usage:'瞑想・ヨガ中にディフューザーで。夜のスキンケアに希釈1滴。',
+    blends:['ラベンダー','サンダルウッド','ミルラ','ローズ'],
+    note:'dōTERRAはオマーン産。"精油の王様"と呼ばれる最高品質ライン。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:4, type:'single', name:'レモン', latin:'Citrus limon',
+    scent:'citrus', effects:['focus','energy','immune'],
+    scentDesc:'フレッシュで明るい柑橘香。清潔感があって気分を軽くする。',
+    effectDesc:'気分向上・集中力サポート。抗菌・空気清浄効果。消化・デトックス補助。',
+    usage:'朝のディフューザーに。水に1滴（飲用グレード）。掃除スプレーに数滴。',
+    blends:['ペパーミント','フランキンセンス','ラベンダー','オンガード'],
+    note:'光感作性あり。使用後12〜24時間は直射日光を避ける。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:5, type:'single', name:'メラルーカ（ティートゥリー）', latin:'Melaleuca alternifolia',
+    scent:'herbal', effects:['immune','skin'],
+    scentDesc:'清潔感のあるシャープで薬草的な香り。クリーンな印象。',
+    effectDesc:'強力な抗菌・抗ウイルス・抗菌作用。肌トラブル（ニキビ・水虫）ケア。',
+    usage:'洗顔料に1滴。手作り消毒スプレーに。足のケアに希釈して。',
+    blends:['レモン','ラベンダー','ユーカリ','オンガード'],
+    note:'dōTERRAではメラルーカという名称で展開。CPTGクオリティで純度が高い。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:6, type:'single', name:'ワイルドオレンジ', latin:'Citrus sinensis',
+    scent:'citrus', effects:['relax','energy'],
+    scentDesc:'甘くジューシーな柑橘の香り。明るく幸福感を感じさせる。',
+    effectDesc:'気分向上・幸福感。不安・緊張の緩和。抗菌効果もあり。',
+    usage:'落ち込んだときにディフューザーで。ペパーミントと合わせて朝の活力に。',
+    blends:['シナモン','フランキンセンス','ベルガモット','クローブ'],
+    note:'光感作性あり。使用後は直射日光を避けること。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:7, type:'single', name:'ユーカリ', latin:'Eucalyptus radiata',
+    scent:'herbal', effects:['immune','breath','energy'],
+    scentDesc:'スーッとする清涼感と清潔感。ウッディな深みも感じられる。',
+    effectDesc:'呼吸器系サポート。鼻・副鼻腔のすっきり感。免疫サポート。',
+    usage:'蒸気吸入（洗面器にお湯＋2滴）。シャワー床に2滴。胸元に希釈して塗布。',
+    blends:['ペパーミント','レモン','メラルーカ','ブリーズ'],
+    note:'dōTERRAはE. radiata種を使用。刺激が穏やかで子どもにも使いやすい。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:8, type:'single', name:'ベルガモット', latin:'Citrus bergamia',
+    scent:'citrus', effects:['relax','focus'],
+    scentDesc:'柑橘のフレッシュさにフローラルの甘みが重なる洗練された香り。',
+    effectDesc:'ストレス・不安の緩和。気分を明るくリフトアップ。自信サポート。',
+    usage:'午後の気分転換ディフューザーに。入浴時に2滴。ラベンダーとブレンドして。',
+    blends:['ラベンダー','ゼラニウム','サンダルウッド','イランイラン'],
+    note:'光感作性あり。フロクマリンフリー(FCF)タイプは安全に肌に使える。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:9, type:'single', name:'ゼラニウム', latin:'Pelargonium graveolens',
+    scent:'floral', effects:['relax','skin'],
+    scentDesc:'ローズに近いフローラルな甘みとグリーンの爽やかさが共存。',
+    effectDesc:'ホルモンバランス調整。皮膚の保湿・収れん。PMS症状のサポート。',
+    usage:'月経時に腹部へ希釈して。フェイシャルケアオイルに1滴。',
+    blends:['ラベンダー','ローズ','ベルガモット','サンダルウッド'],
+    note:'ホルモンに関連するため妊娠中は注意して使用。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:10, type:'single', name:'ローズマリー', latin:'Salvia rosmarinus',
+    scent:'herbal', effects:['focus','energy'],
+    scentDesc:'力強くフレッシュなハーブ香。ウッディとグリーンの力強い組み合わせ。',
+    effectDesc:'記憶力・集中力の向上。頭皮血行促進でスカルプケア。筋肉疲労緩和。',
+    usage:'試験・作業前にディフューザーで。ヘアオイルに希釈してスカルプマッサージ。',
+    blends:['ペパーミント','レモン','バジル','フランキンセンス'],
+    note:'高血圧・てんかんの方は使用注意。妊娠中は避ける。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:11, type:'single', name:'サンダルウッド', latin:'Santalum album',
+    scent:'woody', effects:['relax','sleep','skin'],
+    scentDesc:'クリーミーで温かみのある木の香り。甘みと深みが長く続く。',
+    effectDesc:'深いリラクゼーション・瞑想サポート。肌の保湿・エイジングケア。',
+    usage:'就寝前のロールオンに。フランキンセンスとブレンドして瞑想に。',
+    blends:['フランキンセンス','ローズ','イランイラン','ラベンダー'],
+    note:'dōTERRAはインド産ハワイアンサンダルウッドを持続可能な方法で調達。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:12, type:'single', name:'セダーウッド', latin:'Cedrus atlantica',
+    scent:'woody', effects:['relax','sleep'],
+    scentDesc:'温かく乾いた木の香り。安定感と落ち着きを感じさせる。',
+    effectDesc:'鎮静・グラウンディング。睡眠の質向上。集中サポート（子どもにも）。',
+    usage:'就寝前の子どものディフューザーに。クローゼットの虫除けに。',
+    blends:['ラベンダー','フランキンセンス','ベチバー','バランス'],
+    note:'子どもや敏感肌にも比較的安全。ペットへの使用は注意が必要。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:13, type:'single', name:'イランイラン', latin:'Cananga odorata',
+    scent:'floral', effects:['relax','sleep'],
+    scentDesc:'濃厚でエキゾチックな甘いフローラル。強烈だが少量で魔力的。',
+    effectDesc:'気分の高揚と緊張の解放。高血圧・不安感のサポート。',
+    usage:'少量をラベンダーとブレンドして。パートナーとのバスタイムに。',
+    blends:['ベルガモット','サンダルウッド','ゼラニウム','ジャスミン'],
+    note:'強い香りなので使いすぎに注意。頭痛や吐き気を感じたら換気を。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:14, type:'single', name:'ジンジャー', latin:'Zingiber officinale',
+    scent:'spicy', effects:['energy','digest','immune'],
+    scentDesc:'温かくスパイシーで刺激的。土のような深みと爽やかさ。',
+    effectDesc:'消化促進・吐き気緩和。体を温めて疲労回復。乗り物酔いに効果的。',
+    usage:'乗り物乗車前に吸入。キャリアオイルで腹部マッサージ。',
+    blends:['ワイルドオレンジ','レモン','シナモン','ディフューズ'],
+    note:'皮膚への使用は刺激が強い場合あり。必ず希釈して。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:15, type:'single', name:'クローブ', latin:'Syzygium aromaticum',
+    scent:'spicy', effects:['immune','energy'],
+    scentDesc:'温かくスパイシーで甘みのある香り。力強く存在感がある。',
+    effectDesc:'強力な抗酸化・抗菌。免疫サポート。歯の不快感を一時的に和らげる。',
+    usage:'オンガードとブレンドして免疫サポートに。ウォームな香りのディフューザーに。',
+    blends:['ワイルドオレンジ','シナモン','フランキンセンス','オンガード'],
+    note:'非常に強力なので使用量に注意。必ず希釈。皮膚への原液使用は厳禁。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:16, type:'single', name:'ローマンカモミール', latin:'Chamaemelum nobile',
+    scent:'floral', effects:['relax','sleep','skin'],
+    scentDesc:'甘くアップルのような優しいフローラル。穏やかで安心感のある香り。',
+    effectDesc:'子どもの不安・感情の落ち着きに。皮膚の赤みや刺激を鎮める。',
+    usage:'子どもの足の裏に希釈して。就寝前のバスタイムに数滴。',
+    blends:['ラベンダー','ベルガモット','フランキンセンス','イランイラン'],
+    note:'赤ちゃんから使えると言われる穏やかなオイル。妊娠中は注意。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:17, type:'single', name:'コパイバ', latin:'Copaifera reticulata',
+    scent:'earthy', effects:['relax','skin'],
+    scentDesc:'マイルドでウッディ、わずかにスパイシー。フランキンセンスに近い。',
+    effectDesc:'炎症サポート。皮膚の健康維持。フランキンセンスの効果を高める。',
+    usage:'フランキンセンスと1:1でブレンド。スキンセラムに1〜2滴加えて。',
+    blends:['フランキンセンス','ラベンダー','メラルーカ','サンダルウッド'],
+    note:'CBDなしで抗炎症の恩恵が期待できるオイルとして注目されている。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:18, type:'single', name:'パチュリ', latin:'Pogostemon cablin',
+    scent:'earthy', effects:['relax','skin'],
+    scentDesc:'ムスキーで濃厚な土と木の香り。個性的で香水のような深みがある。',
+    effectDesc:'グラウンディング・安定感。皮膚のセルライトや傷跡のケア。',
+    usage:'香水のベースとして少量。ボディオイルに1滴。',
+    blends:['ベルガモット','イランイラン','サンダルウッド','ゼラニウム'],
+    note:'香水のフィクサティブ（香り持続剤）としても使われる個性的な精油。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:29, type:'single', name:'レモングラス', latin:'Cymbopogon flexuosus',
+    scent:'citrus', effects:['energy','relax','skin'],
+    scentDesc:'フレッシュでレモンより草っぽい、明るくグリーンな柑橘香。',
+    effectDesc:'気分のリフトアップ。結合組織・関節のサポート。虫除け効果。消化促進。',
+    usage:'ディフューザーで気分転換に。フラクショネイテッドココナッツオイルで希釈してマッサージ。',
+    blends:['ラベンダー','ベルガモット','ゼラニウム','ユーカリ'],
+    note:'皮膚への使用は必ず希釈（1%以下推奨）。原液は刺激が強いので注意。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:30, type:'single', name:'ヒノキ', latin:'Chamaecyparis obtusa',
+    scent:'woody', effects:['relax','breath','focus'],
+    scentDesc:'清潔感のある森林浴のような木の香り。「森の香り」そのもの。',
+    effectDesc:'深いリラクゼーション・グラウンディング。呼吸をサポート。森林浴効果。',
+    usage:'入浴時に2〜3滴。瞑想・ヨガ中にディフューザーで。就寝前に枕元に。',
+    blends:['フランキンセンス','セダーウッド','ラベンダー','ベチバー'],
+    note:'dōTERRAのヒノキは日本産。和の癒しをそのままボトルに閉じ込めた一本。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:31, type:'single', name:'ベチバー', latin:'Vetiveria zizanioides',
+    scent:'earthy', effects:['relax','sleep','focus'],
+    scentDesc:'深くスモーキーで土のような重厚な香り。濃密で長持ちする。',
+    effectDesc:'深いグラウンディング・鎮静。集中力サポート（ADHDケアにも）。睡眠の深化。',
+    usage:'就寝前に足の裏に1滴。インチューンと合わせて集中に。香水のベースに少量。',
+    blends:['フランキンセンス','サンダルウッド','セダーウッド','インチューン'],
+    note:'非常に濃度が高く粘性がある。少量（1滴）から試すのがおすすめ。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:32, type:'single', name:'リツェア', latin:'Litsea cubeba',
+    scent:'citrus', effects:['energy','relax','focus'],
+    scentDesc:'レモンより甘くフローラルな柑橘香。軽やかで明るい印象。',
+    effectDesc:'気分の明るさ・前向きな感情をサポート。集中力補助。抗菌作用。',
+    usage:'朝のディフューザーに。ベルガモットの代わりに（光感作性が低い）。',
+    blends:['ラベンダー','ベルガモット','ゼラニウム','フランキンセンス'],
+    note:'別名メイチャン。光感作性が比較的低いため昼間のスキンケアにも使いやすい。',
+    methods:['apply','diffuse']
+  },
+  // ── ブレンドオイル ──
+  {
+    id:19, type:'blend', name:'オンガード', latin:'dōTERRA On Guard®',
+    scent:'spicy', effects:['immune','energy'],
+    scentDesc:'ワイルドオレンジとスパイスが温かく甘く広がる。元気が出る香り。',
+    effectDesc:'免疫系のサポート。抗菌・抗ウイルス。冬の季節のウェルネスケア。',
+    usage:'免疫サポートに足の裏へ。ディフューザーで空気清浄。ウォーターに1滴（飲用可）。',
+    blends:['ワイルドオレンジ','クローブ','シナモン','ユーカリ','ローズマリー'],
+    note:'成分：ワイルドオレンジ、クローブ、シナモン、ユーカリ、ローズマリー。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:20, type:'blend', name:'ブリーズ', latin:'dōTERRA Breathe®',
+    scent:'herbal', effects:['breath','immune','sleep'],
+    scentDesc:'ミント・ユーカリ・コニファーが爽快に広がる。深呼吸したくなる香り。',
+    effectDesc:'気道のクリア感をサポート。睡眠中の快適な呼吸。季節の不快感に。',
+    usage:'胸元と首筋に希釈して。就寝前に枕に1〜2滴。ディフューザーで寝室に。',
+    blends:['ペパーミント','ユーカリ','レモン','メラルーカ'],
+    note:'成分：ローレル、ペパーミント、ユーカリ、メラルーカ、レモン、カルダモンなど。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:21, type:'blend', name:'ディープブルー', latin:'dōTERRA Deep Blue®',
+    scent:'herbal', effects:['energy'],
+    scentDesc:'ウィンターグリーンとミントの冷感が広がる、スポーティな香り。',
+    effectDesc:'筋肉・関節の不快感のサポート。運動後のリカバリーに。',
+    usage:'運動後に患部へ希釈して塗布。ランニング前後のケアに。',
+    blends:['ペパーミント','ユーカリ','ラベンダー','フランキンセンス'],
+    note:'成分：ウィンターグリーン、カンフル、ペパーミント、ブルータンジー、ブルーカモミールなど。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:22, type:'blend', name:'バランス', latin:'dōTERRA Balance®',
+    scent:'woody', effects:['relax','sleep'],
+    scentDesc:'スプルースとウッドが甘くグラウンディングな深みを作る。安定した香り。',
+    effectDesc:'感情のバランス。不安感・緊張の緩和。瞑想・ヨガのサポート。',
+    usage:'朝の儀式として足の裏に。感情が乱れたときにパルスポイントへ。',
+    blends:['フランキンセンス','ラベンダー','セダーウッド','ベチバー'],
+    note:'成分：スプルース、ホーウッド、フランキンセンス、ブルータンジー、ブルーカモミール（ヤシ油ベース）。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:23, type:'blend', name:'セレニティ', latin:'dōTERRA Serenity®',
+    scent:'floral', effects:['relax','sleep'],
+    scentDesc:'ラベンダーとフローラルが穏やかに溶け合う、夜のような柔らかさ。',
+    effectDesc:'深いリラクゼーション。睡眠の質向上。情緒の安定。',
+    usage:'就寝30分前にディフューザーで。足の裏や手首に希釈して。',
+    blends:['ラベンダー','セダーウッド','フランキンセンス','バランス'],
+    note:'成分：ラベンダー、ホーウッド、セダーウッド、イランイラン、サンダルウッド、マルジョラムなど。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:24, type:'blend', name:'ディフューズ（シトラスブリス）', latin:'dōTERRA Citrus Bliss®',
+    scent:'citrus', effects:['energy','relax'],
+    scentDesc:'複数の柑橘が明るく爾軽やかに広がる。夏の朝のような清々しさ。',
+    effectDesc:'気分のリフトアップ。エネルギー補充。ストレス解放。',
+    usage:'朝のディフューザーに。気分転換したいときにそのまま吸入。',
+    blends:['ペパーミント','ワイルドオレンジ','ベルガモット','エレベーション'],
+    note:'成分：ワイルドオレンジ、レモン、グレープフルーツ、マンダリン、ベルガモット、タンジェリン、ライムなど。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:25, type:'blend', name:'ダイジェスチェン', latin:'dōTERRA DigestZen®',
+    scent:'herbal', effects:['digest','relax'],
+    scentDesc:'ミントとアニスのスパイシーな清涼感。薬用ハーブの力強さ。',
+    effectDesc:'消化サポート。膨満感・ガス・胃の不快感に。食後のケアに。',
+    usage:'食後に腹部へ希釈して時計回りにマッサージ。水に1滴（飲用グレード）。',
+    blends:['ジンジャー','フェンネル','ペパーミント'],
+    note:'成分：アニス、ペパーミント、ジンジャー、キャロットシード、コリアンダー、フェンネルなど。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:26, type:'blend', name:'エレベーション', latin:'dōTERRA Elevation®',
+    scent:'floral', effects:['energy','relax'],
+    scentDesc:'フローラルとシトラスが明るく弾けるような高揚感のある香り。',
+    effectDesc:'気分の高揚・幸福感。エネルギー補充。自信と前向きな気持ちに。',
+    usage:'気分を上げたいときにパルスポイントへ。ポジティブな会議前にディフューザーで。',
+    blends:['ワイルドオレンジ','ベルガモット','ラベンダー','イランイラン'],
+    note:'成分：ラバンジン、タンジェリン、エレミ、レモンマートル、モノイ、ノービリスなど。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:27, type:'blend', name:'パストテンス', latin:'dōTERRA PastTense®',
+    scent:'herbal', effects:['relax','focus'],
+    scentDesc:'ウィンターグリーンとラベンダーが冷涼感とともに広がるバランスの良い香り。',
+    effectDesc:'頭部の緊張感・こわばりのサポート。ストレス性の不快感に。',
+    usage:'こめかみ・首の後ろ・額に希釈して塗布。1日3〜4回まで。',
+    blends:['ラベンダー','フランキンセンス','ペパーミント'],
+    note:'成分：ウィンターグリーン、ラベンダー、ペパーミント、フランキンセンス、コリアンダー、マルジョラムなど。ロールオンタイプも有。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:33, type:'single', name:'レモンユーカリ', latin:'Eucalyptus citriodora',
+    scent:'citrus', effects:['breath','immune','energy'],
+    scentDesc:'ユーカリにレモンの爽やかさが加わった、清涼感のある明るい香り。',
+    effectDesc:'呼吸サポート。強力な虫除け効果（DIYスプレーに最適）。抗菌作用。',
+    usage:'虫除けスプレーに（水＋アルコール＋数滴）。夏のディフューザーに。',
+    blends:['ラベンダー','レモン','ペパーミント','レモングラス'],
+    note:'通常のユーカリより虫除け効果が高い。肌への使用は必ず希釈を。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:34, type:'single', name:'ゼラニウム', latin:'Pelargonium graveolens',
+    scent:'floral', effects:['relax','skin'],
+    scentDesc:'ローズに近いフローラルな甘みとグリーンの爽やかさが共存。',
+    effectDesc:'ホルモンバランス調整。皮膚の保湿・収れん。PMS症状のサポート。',
+    usage:'月経時に腹部へ希釈して。フェイシャルケアオイルに1滴。',
+    blends:['ラベンダー','ローズ','ベルガモット','サンダルウッド'],
+    note:'ホルモンに関連するため妊娠中は注意して使用。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:35, type:'single', name:'グリーンマンダリン', latin:'Citrus reticulata',
+    scent:'citrus', effects:['relax','energy'],
+    scentDesc:'青くてフレッシュな柑橘香。爽やかでやや甘み控えめ。',
+    effectDesc:'気分の高揚・リフレッシュ。消化サポート。子どもにも穏やかに使える。',
+    usage:'朝のディフューザーで清々しいスタートに。水に1滴（飲用グレード）。',
+    blends:['ラベンダー','ベルガモット','フランキンセンス','ゼラニウム'],
+    note:'光感作性が低く、レッドマンダリンより使いやすい昼間向けの柑橘オイル。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:36, type:'single', name:'ナイオウッド', latin:'Ravensara aromatica',
+    scent:'woody', effects:['immune','breath','relax'],
+    scentDesc:'スパイシーさとウッディ感が混ざる、クリーンで深みのある香り。',
+    effectDesc:'免疫・呼吸サポート。抗ウイルス作用。精神的な疲労の回復に。',
+    usage:'風邪の季節にブリーズやユーカリとブレンドして。胸元に希釈して塗布。',
+    blends:['ユーカリ','ラベンダー','フランキンセンス','ブリーズ'],
+    note:'マダガスカル産。ラベンサラと混同されることがあるが別の植物。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:37, type:'single', name:'ライム', latin:'Citrus aurantifolia',
+    scent:'citrus', effects:['energy','focus','immune'],
+    scentDesc:'キリッとシャープな柑橘香。レモンより刺激的でグリーン感が強い。',
+    effectDesc:'気分の活性化・集中力サポート。消化促進。抗菌・空気清浄効果。',
+    usage:'朝の活力ディフューザーに。ペパーミント・レモンとブレンドして。',
+    blends:['ペパーミント','ワイルドオレンジ','ベルガモット','ユーカリ'],
+    note:'光感作性あり。使用後12〜24時間は直射日光を避けること。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:38, type:'single', name:'オレンジ（スイートオレンジ）', latin:'Citrus sinensis',
+    scent:'citrus', effects:['relax','energy'],
+    scentDesc:'温かくジューシーな甘い柑橘香。ワイルドオレンジより穏やかで丸みがある。',
+    effectDesc:'気分の明るさ・不安の緩和。消化促進。子どもにも使いやすい。',
+    usage:'子ども用ディフューザーに。バニラやシナモンとブレンドして温かい香りに。',
+    blends:['バニラ','シナモン','フランキンセンス','ラベンダー'],
+    note:'光感作性あり。使用後は直射日光を避けること。ワイルドオレンジと用途は近い。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:39, type:'single', name:'カシア', latin:'Cinnamomum cassia',
+    scent:'spicy', effects:['immune','energy','digest'],
+    scentDesc:'シナモンに似た甘くスパイシーな香り。よりシャープで力強い印象。',
+    effectDesc:'免疫サポート。血行促進・体を温める。消化サポート。',
+    usage:'オンガードと合わせて免疫ブレンドに。冬のウォームディフューザーに。',
+    blends:['ワイルドオレンジ','クローブ','ジンジャー','オンガード'],
+    note:'皮膚への刺激が非常に強い。必ず1%以下に希釈。原液は厳禁。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:40, type:'single', name:'サイプレス', latin:'Cupressus sempervirens',
+    scent:'woody', effects:['relax','breath','energy'],
+    scentDesc:'爽やかでクリーンな針葉樹の香り。森林の空気を感じさせる。',
+    effectDesc:'血行・リンパの流れをサポート。呼吸サポート。感情のグラウンディング。',
+    usage:'脚のむくみに希釈してマッサージ。森林浴気分のディフューザーに。',
+    blends:['ヒノキ','セダーウッド','フランキンセンス','ベルガモット'],
+    note:'妊娠中は使用を避ける。循環系サポートとして人気の高いオイル。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:41, type:'single', name:'クラリセージ', latin:'Salvia sclarea',
+    scent:'herbal', effects:['relax','sleep'],
+    scentDesc:'甘くナッツのようなハーバルな香り。少し土のニュアンスも。',
+    effectDesc:'ホルモンバランスのサポート。深い休息・夢を豊かにする。PMS・更年期に。',
+    usage:'月経期のバスオイルに。就寝前の枕スプレーに。ゼラニウムと合わせて。',
+    blends:['ゼラニウム','ラベンダー','ベルガモット','サンダルウッド'],
+    note:'妊娠中・授乳中は避ける。アルコールと一緒に使用しない。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:42, type:'single', name:'フェンネル', latin:'Foeniculum vulgare',
+    scent:'herbal', effects:['digest','energy'],
+    scentDesc:'甘くアニスのようなリコリス系の香り。ハーブの清涼感もある。',
+    effectDesc:'消化促進・膨満感・食欲調整。デトックスサポート。',
+    usage:'食後に腹部へ希釈してマッサージ。ダイジェスチェンと合わせて。',
+    blends:['レモン','ジンジャー','ペパーミント','ダイジェスチェン'],
+    note:'エストロゲン様作用あり。妊娠中・ホルモン依存性疾患のある方は注意。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:43, type:'single', name:'バニラ', latin:'Vanilla planifolia',
+    scent:'floral', effects:['relax','sleep'],
+    scentDesc:'温かくクリーミーな甘い香り。安心感と幸福感を包み込む。',
+    effectDesc:'気分の安定・不安の緩和。深いリラクゼーション。',
+    usage:'就寝前のディフューザーに。ワイルドオレンジと合わせて温かいブレンドに。',
+    blends:['ワイルドオレンジ','サンダルウッド','ラベンダー','イランイラン'],
+    note:'dōTERRAのバニラはCO2抽出。甘い香りで子どもや香り初心者にも人気。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:44, type:'single', name:'ヘリクリサム', latin:'Helichrysum italicum',
+    scent:'floral', effects:['skin','relax'],
+    scentDesc:'蜂蜜とストローのような独特の温かみある香り。少し薬草感も。',
+    effectDesc:'皮膚の再生・傷跡ケアに卓越した効果。炎症・打撲サポート。',
+    usage:'傷・術後ケアに希釈して。フランキンセンスと合わせてアンチエイジングセラムに。',
+    blends:['フランキンセンス','ラベンダー','コパイバ','サンダルウッド'],
+    note:'dōTERRAでは最も高価なオイルの一つ。少量で十分効果が出る。コルシカ産。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:45, type:'single', name:'マジョラム', latin:'Origanum majorana',
+    scent:'herbal', effects:['relax','sleep','digest'],
+    scentDesc:'温かくスパイシーなハーブ香。ウッディとフローラルの中間のような穏やかさ。',
+    effectDesc:'筋肉の緊張緩和。消化サポート。感情の孤独感や悲しみを和らげる。',
+    usage:'就寝前に胸元へ希釈して。緊張した筋肉に希釈してマッサージ。',
+    blends:['ラベンダー','フランキンセンス','ベルガモット','セレニティ'],
+    note:'パストテンスの成分のひとつ。感情サポートとして「孤独のオイル」とも呼ばれる。',
+    methods:['apply','diffuse','bath']
+  },
+  {
+    id:46, type:'single', name:'オレガノ', latin:'Origanum vulgare',
+    scent:'herbal', effects:['immune','energy'],
+    scentDesc:'力強くシャープなハーブ香。ピリッとした刺激感がある。',
+    effectDesc:'最強クラスの抗菌・抗ウイルス。免疫の強力サポート。消化促進。',
+    usage:'免疫強化に足の裏へ（必ず希釈）。オンガードと合わせて季節の変わり目に。',
+    blends:['レモン','フランキンセンス','メラルーカ','オンガード'],
+    note:'皮膚への刺激が非常に強い。必ず1%以下に希釈。妊娠中は避ける。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:47, type:'single', name:'タンジェリン', latin:'Citrus reticulata',
+    scent:'citrus', effects:['relax','energy'],
+    scentDesc:'マンダリンより甘くジューシーで明るい柑橘香。幸福感に満ちた香り。',
+    effectDesc:'気分の明るさ・幸福感のサポート。消化促進。子どもに人気の穏やかなオイル。',
+    usage:'子どものディフューザーに。ワイルドオレンジの代わりに。バスタイムに2滴。',
+    blends:['ラベンダー','ベルガモット','グリーンマンダリン','シトラスブリス'],
+    note:'光感作性あり。使用後は直射日光を避けること。甘みが強く使いやすい柑橘。',
+    methods:['apply','ingest','diffuse']
+  },
+  {
+    id:48, type:'single', name:'サマーセイボリー', latin:'Satureja hortensis',
+    scent:'herbal', effects:['immune','energy'],
+    scentDesc:'ハーブとスパイスが混ざるシャープで力強い香り。オレガノに近い印象。',
+    effectDesc:'強力な抗菌・抗ウイルス。免疫サポート。消化促進。',
+    usage:'オレガノの代替として足の裏へ希釈して。免疫ブレンドに少量加えて。',
+    blends:['オレガノ','フランキンセンス','メラルーカ','オンガード'],
+    note:'皮膚への刺激が強い。必ず十分に希釈（1%以下）。妊娠中は避ける。',
+    methods:['apply','diffuse']
+  },
+  // ── ブレンドオイル ──
+  {
+    id:49, type:'blend', name:'スーパーミント', latin:'dōTERRA SuperMint™',
+    scent:'herbal', effects:['focus','energy','breath'],
+    scentDesc:'複数のミント種が重なる、鮮烈でパワフルな清涼感。ペパーミントより複雑。',
+    effectDesc:'強力な集中・覚醒サポート。呼吸のクリア感。頭部の緊張緩和。',
+    usage:'朝の活力ディフューザーに。こめかみに少量希釈して。',
+    blends:['レモン','ユーカリ','ブリーズ','フランキンセンス'],
+    note:'成分：ペパーミント、スペアミント、コーンミントなど複数のミント種をブレンド。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:50, type:'blend', name:'ホリデーラブ', latin:'dōTERRA Holiday Love™',
+    scent:'spicy', effects:['relax','energy'],
+    scentDesc:'シナモン・クローブ・オレンジが混ざる温かく甘いホリデー感。',
+    effectDesc:'温かい幸福感・高揚感。冬の季節のウェルネスと気分サポート。',
+    usage:'クリスマスや冬のディフューザーに。温かい場の雰囲気づくりに。',
+    blends:['ワイルドオレンジ','カシア','クローブ','オンガード'],
+    note:'季節限定ブレンド。成分：ワイルドオレンジ、シナモン、クローブ、スター アニスなど。',
+    methods:['diffuse']
+  },
+  {
+    id:51, type:'blend', name:'イージーエア', latin:'dōTERRA Easy Air™',
+    scent:'herbal', effects:['breath','immune','sleep'],
+    scentDesc:'ミント・ユーカリ・コニファーが爽快に広がる。ブリーズの別名。',
+    effectDesc:'気道のクリア感。快適な呼吸サポート。睡眠中の呼吸に。',
+    usage:'胸元・首筋に希釈して。就寝前ディフューザーで。蒸気吸入に。',
+    blends:['ペパーミント','ユーカリ','レモン','メラルーカ'],
+    note:'ブリーズ（Breathe）と同成分の別名称。地域によって名称が異なる。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:52, type:'blend', name:'ホリデージョイ', latin:'dōTERRA Holiday Joy™',
+    scent:'spicy', effects:['energy','relax'],
+    scentDesc:'シトラスとスパイスが軽やかに混ざる、明るくフェスティブな香り。',
+    effectDesc:'喜び・高揚感のサポート。冬の気分を明るくリフトアップ。',
+    usage:'年末年始・冬の集まりのディフューザーに。エレベーションとブレンドしても。',
+    blends:['ワイルドオレンジ','クローブ','エレベーション','シトラスブリス'],
+    note:'季節限定ブレンド。ホリデーラブより軽く明るい印象の冬の定番。',
+    methods:['diffuse']
+  },
+  {
+    id:53, type:'blend', name:'サニーシトラス', latin:'dōTERRA Sunny Citrus™',
+    scent:'citrus', effects:['energy','relax'],
+    scentDesc:'複数の柑橘が明るくはじける、太陽のような軽やかな香り。',
+    effectDesc:'気分のリフトアップ・活力。ストレス解放。前向きな感情のサポート。',
+    usage:'朝のルーティンディフューザーに。気持ちを切り替えたいときに吸入。',
+    blends:['ペパーミント','ベルガモット','エレベーション','シトラスブリス'],
+    note:'シトラスブリスに近い明るい柑橘系ブレンド。夏・春向け。',
+    methods:['diffuse']
+  },
+  {
+    id:54, type:'blend', name:'コンソール', latin:'dōTERRA Console®',
+    scent:'floral', effects:['relax','sleep'],
+    scentDesc:'フローラルと温かいウッディが重なる、包み込むような優しい香り。',
+    effectDesc:'悲しみ・喪失感・落ち込みへの感情サポート。心の癒しに。',
+    usage:'悲しいとき・傷ついたときに手首や胸元へ。グリーフケアに。',
+    blends:['フランキンセンス','ラベンダー','イランイラン','マジョラム'],
+    note:'成分：フランキンセンス、ペッパーウッド、イランイラン、マジョラム、サンダルウッドなど。感情サポートコレクションの一つ。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:55, type:'blend', name:'ピース', latin:'dōTERRA Peace®',
+    scent:'floral', effects:['relax','sleep'],
+    scentDesc:'フローラルとウッディが穏やかに溶け合う。安らぎを感じさせる香り。',
+    effectDesc:'不安・恐れ・心配の感情サポート。平静心・安心感を育む。',
+    usage:'不安を感じるときに手首や胸元へ。就寝前のリラクゼーションに。',
+    blends:['ラベンダー','フランキンセンス','バランス','セレニティ'],
+    note:'成分：ベチバー、ラバンジン、ライム、クラリセージ、イランイラン、マルジョラムなど。感情サポートコレクション。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:56, type:'blend', name:'チアー', latin:'dōTERRA Cheer®',
+    scent:'citrus', effects:['energy','relax'],
+    scentDesc:'柑橘とスパイスが明るくはじける、元気いっぱいの陽気な香り。',
+    effectDesc:'悲観的な気持ちを前向きに。楽観性・喜びの感情サポート。',
+    usage:'気分が沈んだときにパルスポイントへ。朝のポジティブスタートに。',
+    blends:['ワイルドオレンジ','エレベーション','シトラスブリス','ベルガモット'],
+    note:'成分：ワイルドオレンジ、クローブ、スターアニス、レモンマートル、バニラなど。感情サポートコレクション。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:57, type:'blend', name:'パッション', latin:'dōTERRA Passion®',
+    scent:'spicy', effects:['energy','relax'],
+    scentDesc:'エキゾチックなスパイスとフローラルが混ざる、情熱的で温かい香り。',
+    effectDesc:'情熱・創造性・活力の感情サポート。無気力・倦怠感に。',
+    usage:'クリエイティブな作業前にパルスポイントへ。エネルギーが必要なときに。',
+    blends:['エレベーション','イランイラン','ベルガモット','フランキンセンス'],
+    note:'成分：フレンチラベンダー、イランイラン、ハワイアンサンダルウッド、シナモンなど。感情サポートコレクション。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:58, type:'blend', name:'モチベート', latin:'dōTERRA Motivate®',
+    scent:'herbal', effects:['focus','energy'],
+    scentDesc:'ミントと柑橘が明るく爽快に広がる。やる気が湧いてくる香り。',
+    effectDesc:'意欲・自信・行動力の感情サポート。目標達成の後押しに。',
+    usage:'大切なプロジェクト前にパルスポイントへ。やる気が出ないときに吸入。',
+    blends:['ペパーミント','レモン','インチューン','エレベーション'],
+    note:'成分：ペパーミント、クレメンタイン、コリアンダー、バジル、ユーカリなど。感情サポートコレクション。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:59, type:'blend', name:'フォーギブ', latin:'dōTERRA Forgive®',
+    scent:'herbal', effects:['relax','focus'],
+    scentDesc:'スプルースとフローラルが爽やかに調和する。心が軽くなるような香り。',
+    effectDesc:'怒り・恨みの感情サポート。自己許容・手放しを促す。内なる平和に。',
+    usage:'怒りや後悔を感じるときに手首・胸元へ。瞑想中にディフューザーで。',
+    blends:['フランキンセンス','ラベンダー','バランス','ピース'],
+    note:'成分：スプルース、ベルガモット、コリアンダー、マルジョラム、シソ、アルボリテなど。感情サポートコレクション。',
+    methods:['apply','diffuse']
+  },
+  {
+    id:28, type:'blend', name:'インチューン', latin:'dōTERRA InTune®',
+    scent:'earthy', effects:['focus','relax'],
+    scentDesc:'アミリスとアロマティックハーブが混ざるフォーカシングな香り。',
+    effectDesc:'集中力・注意力のサポート。ADHD傾向のケアに使われることも。',
+    usage:'勉強・仕事前に首元や手首に。子どもの集中が必要なときに。',
+    blends:['セダーウッド','ベチバー','フランキンセンス','ローマンカモミール'],
+    note:'成分：アミリス、バジル、フランキンセンス、ローマンカモミール、ベチバー、サンダルウッドなど。ロールオンで使いやすい。',
+    methods:['apply','diffuse']
+  },
+];
+
+// ── dōTERRA bottle SVG — slim cylinder ──
+function oilIllustration(id, scent) {
+  const c = SCENT_COLORS[scent];
+  const oil = OILS.find(o => o.id === id);
+  const name = oil ? oil.name : '';
+  const short = name.length > 8 ? name.slice(0, 8) + '…' : name;
+
+  const labelColors = {
+    floral: ['#B86840','#D4904E'],
+    woody:  ['#7A5428','#9A7040'],
+    citrus: ['#B87C10','#D89C28'],
+    herbal: ['#487838','#6A9850'],
+    spicy:  ['#A04020','#C06038'],
+    earthy: ['#684828','#886040'],
+    blend:  ['#385870','#507898'],
+  };
+  const [lDark, lLight] = labelColors[scent] || labelColors.blend;
+
+  return `<svg viewBox="0 0 36 80" class="card-illust" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- body: dark amber cylinder -->
+      <linearGradient id="gb${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#0A0500"/>
+        <stop offset="15%"  stop-color="#1C0C02"/>
+        <stop offset="38%"  stop-color="#351804"/>
+        <stop offset="55%"  stop-color="#251003"/>
+        <stop offset="78%"  stop-color="#140800"/>
+        <stop offset="100%" stop-color="#060200"/>
+      </linearGradient>
+      <!-- left highlight streak -->
+      <linearGradient id="gh${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#fff" stop-opacity="0.0"/>
+        <stop offset="22%"  stop-color="#fff" stop-opacity="0.25"/>
+        <stop offset="32%"  stop-color="#fff" stop-opacity="0.42"/>
+        <stop offset="44%"  stop-color="#fff" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0.0"/>
+      </linearGradient>
+      <!-- right rim light -->
+      <linearGradient id="gr${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#7A4010" stop-opacity="0.0"/>
+        <stop offset="82%"  stop-color="#7A4010" stop-opacity="0.0"/>
+        <stop offset="93%"  stop-color="#A06020" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#7A4010" stop-opacity="0.25"/>
+      </linearGradient>
+      <!-- cap -->
+      <linearGradient id="gc${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#080808"/>
+        <stop offset="28%"  stop-color="#282828"/>
+        <stop offset="48%"  stop-color="#383838"/>
+        <stop offset="72%"  stop-color="#181818"/>
+        <stop offset="100%" stop-color="#040404"/>
+      </linearGradient>
+      <!-- label base -->
+      <linearGradient id="gl${id}" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="${lDark}"/>
+        <stop offset="30%"  stop-color="${lLight}"/>
+        <stop offset="70%"  stop-color="${lLight}"/>
+        <stop offset="100%" stop-color="${lDark}"/>
+      </linearGradient>
+      <!-- label sheen top -->
+      <linearGradient id="gs${id}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#fff" stop-opacity="0.22"/>
+        <stop offset="45%"  stop-color="#fff" stop-opacity="0.04"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0.10"/>
+      </linearGradient>
+    </defs>
+
+    <!-- ── CAP (short, same width as bottle) ── -->
+    <rect x="7" y="3" width="22" height="12" rx="2"
+      fill="url(#gc${id})"/>
+    <!-- cap ridges -->
+    <line x1="7" y1="6"  x2="29" y2="6"  stroke="#484848" stroke-width="0.7"/>
+    <line x1="7" y1="8.5" x2="29" y2="8.5" stroke="#484848" stroke-width="0.7"/>
+    <line x1="7" y1="11" x2="29" y2="11" stroke="#484848" stroke-width="0.7"/>
+    <!-- cap highlight -->
+    <rect x="8" y="3" width="3.5" height="12" rx="0.5" fill="#fff" fill-opacity="0.08"/>
+
+    <!-- cap-body join ring -->
+    <rect x="6" y="14" width="24" height="3" rx="0.5" fill="#0E0E0E"/>
+    <rect x="6" y="14" width="24" height="1" rx="0.5" fill="#fff" fill-opacity="0.06"/>
+
+    <!-- ── NECK (same width, short) ── -->
+    <rect x="7" y="17" width="22" height="5" fill="url(#gb${id})"/>
+
+    <!-- ── BODY (slim straight cylinder) ── -->
+    <rect x="6" y="22" width="24" height="50" rx="2" fill="url(#gb${id})"/>
+    <!-- rim light -->
+    <rect x="6" y="22" width="24" height="50" rx="2" fill="url(#gr${id})"/>
+    <!-- highlight streak -->
+    <rect x="6" y="22" width="24" height="50" rx="2" fill="url(#gh${id})"/>
+
+    <!-- inner amber glow at base -->
+    <ellipse cx="18" cy="68" rx="9" ry="3.5" fill="#8B4A10" fill-opacity="0.28"/>
+
+    <!-- ── LABEL ── -->
+    <rect x="6" y="28" width="24" height="32" rx="1"
+      fill="url(#gl${id})"/>
+    <rect x="6" y="28" width="24" height="32" rx="1"
+      fill="url(#gs${id})"/>
+    <!-- label border -->
+    <rect x="6" y="28" width="24" height="32" rx="1"
+      fill="none" stroke="#fff" stroke-width="0.35" stroke-opacity="0.3"/>
+    <!-- label top line -->
+    <line x1="6" y1="33" x2="30" y2="33" stroke="#fff" stroke-width="0.4" stroke-opacity="0.4"/>
+    <!-- label bottom line -->
+    <line x1="6" y1="55" x2="30" y2="55" stroke="#fff" stroke-width="0.35" stroke-opacity="0.25"/>
+
+    <!-- vertical text group: rotated around label center -->
+    <g transform="rotate(-90, 18, 44)">
+      <!-- brand name -->
+      <text x="18" y="34"
+        font-family="Arial,sans-serif" font-size="3" font-weight="bold" font-style="italic"
+        fill="#fff" fill-opacity="0.85" text-anchor="middle" letter-spacing="0.5">doTERRA</text>
+      <!-- oil name -->
+      <text x="18" y="44"
+        font-family="Arial,sans-serif" font-size="5.2" font-weight="bold"
+        fill="#fff" fill-opacity="0.97" text-anchor="middle">${short}</text>
+      <!-- 15mL -->
+      <text x="18" y="55"
+        font-family="Arial,sans-serif" font-size="2.5"
+        fill="#fff" fill-opacity="0.5" text-anchor="middle">15 mL</text>
+    </g>
+
+    <!-- ── SHADOW ── -->
+    <ellipse cx="18" cy="73.5" rx="11" ry="2" fill="#000" fill-opacity="0.18"/>
+  </svg>`;
+}
+
+// ── legacy scent-based fallback (for blends) ──
+const METHOD_META = {
+  apply:  { label:'塗布', color:'#C87890',
+    icon:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/></svg>' },
+  ingest: { label:'摂取', color:'#C88858',
+    icon:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v3a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V3"/><path d="M8 21h8"/><path d="M12 13v8"/><path d="M7 8h10l-1 5H8L7 8z"/></svg>' },
+  diffuse:{ label:'芳香', color:'#7AA878',
+    icon:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="M8 6c0 4 8 4 8 8a4 4 0 0 1-8 0"/><path d="M6 18h12"/><path d="M9 22h6"/></svg>' },
+  bath:   { label:'入浴', color:'#6AAAB0',
+    icon:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16v4a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-4z"/><path d="M6 12V6a2 2 0 0 1 2-2h1"/><path d="M8 22v2"/><path d="M16 22v2"/></svg>' },
+};
+
+function methodBadges(methods) {
+  return (methods || []).map(m => {
+    const meta = METHOD_META[m];
+    if (!meta) return '';
+    return `<span class="method-badge" style="background:${meta.color}18;color:${meta.color}">${meta.icon}${meta.label}</span>`;
+  }).join('');
+}
+
+let activeScentFilter = 'all';
+let activeEffectFilter = 'all';
+let activeTypeFilter = 'all';
+let searchQuery = '';
+let currentOil = null;
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const q = searchQuery.toLowerCase();
+  const filtered = OILS.filter(o => {
+    const matchScent  = activeScentFilter  === 'all' || o.scent === activeScentFilter;
+    const matchEffect = activeEffectFilter === 'all' || o.effects.includes(activeEffectFilter);
+    const matchType   = activeTypeFilter   === 'all' || o.type  === activeTypeFilter;
+    const matchSearch = !q ||
+      o.name.includes(q) || o.latin.toLowerCase().includes(q) ||
+      o.effectDesc.includes(q) || o.scentDesc.includes(q) ||
+      o.effects.some(e => EFFECT_LABELS[e].includes(q)) ||
+      (o.note && o.note.includes(q));
+    return matchScent && matchEffect && matchType && matchSearch;
+  });
+
+  filtered.sort((a, b) => a.name.localeCompare(b.name, 'ja'));
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="no-result">該当する精油が見つかりませんでした</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(o => {
+    const c = SCENT_COLORS[o.scent];
+    const tags = o.effects.map(e =>
+      '<span class="card-tag" style="background:' + EFFECT_COLORS[e] + '">' + EFFECT_LABELS[e] + '</span>'
+    ).join('');
+    const methods = methodBadges(o.methods);
+    const blend = o.type === 'blend' ? '<span class="card-blend-mark">blend</span>' : '';
+    const illust = oilIllustration(o.id, o.scent);
+    return '<div class="card" data-id="' + o.id + '" data-color="' + c + '">'
+      + '<div class="card-tint" style="background:' + c + '"></div>'
+      + blend
+      + '<div class="card-illust-wrap">' + illust + '</div>'
+      + '<div class="card-name">' + o.name + '</div>'
+      + '<div class="card-latin">' + o.latin + '</div>'
+      + '<div class="card-tags">' + tags + '</div>'
+      + '<div class="card-methods">' + methods + '</div>'
+      + '</div>';
+  }).join('');
+
+  // Use event delegation on grid instead of per-card listeners
+  grid.onclick = function(e) {
+    const card = e.target.closest('.card');
+    if (!card) return;
+    const oil = OILS.find(o => o.id === +card.dataset.id);
+    if (oil) openModal(oil);
+  };
+}
+
+function openModal(oil) {
+  currentOil = oil;
+  const c = SCENT_COLORS[oil.scent];
+  document.getElementById('modalScentLine').style.background = c;
+  document.getElementById('modalName').textContent = oil.name;
+  document.getElementById('modalLatin').textContent = oil.latin;
+  document.getElementById('modalBadges').innerHTML =
+    '<span class="modal-badge" style="background:' + c + '">' + SCENT_LABELS[oil.scent] + '</span>' +
+    oil.effects.map(e => '<span class="modal-badge" style="background:' + EFFECT_COLORS[e] + '">' + EFFECT_LABELS[e] + '</span>').join('') +
+    (oil.type === 'blend'
+      ? '<span class="modal-badge" style="background:var(--blend)">Blend</span>'
+      : '<span class="modal-badge" style="background:var(--taupe)">Single</span>');
+  document.getElementById('modalScent').textContent = oil.scentDesc;
+  document.getElementById('modalEffects').textContent = oil.effectDesc;
+  document.getElementById('modalUsage').textContent = oil.usage;
+  document.getElementById('modalMethods').innerHTML = methodBadges(oil.methods);
+  document.getElementById('modalBlends').innerHTML = oil.blends.map(b => '<span class="blend-tag">' + b + '</span>').join('');
+  document.getElementById('modalNote').innerHTML = '<strong>dōTERRA memo</strong>' + oil.note;
+  document.getElementById('aiResponse').innerHTML = '<span class="ai-hint">ボタンを押すと質問文がコピーされます。Claude.ai に貼り付けてご利用ください。</span>';
+  document.getElementById('aiQuestionInput').value = '';
+  document.getElementById('modal').scrollTop = 0;
+
+  // Apply all overlay styles via JS to bypass any CSS cascade issues
+  const ov = document.getElementById('overlay');
+  ov.style.cssText = [
+    'display:flex',
+    'position:fixed',
+    'top:0','left:0','right:0','bottom:0',
+    'width:100vw','height:100vh',
+    'background:rgba(58,48,40,0.5)',
+    'z-index:99999',
+    'align-items:flex-end',
+    'justify-content:center',
+    'box-sizing:border-box',
+  ].join(';');
+}
+
+function closeModal() {
+  const ov = document.getElementById('overlay');
+  ov.style.cssText = 'display:none';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function buildPrompt(question) {
+  return `dōTERRAの「${currentOil.name}」（${currentOil.latin}）について：${question}`;
+}
+
+async function askAI(question) {
+  const prompt = buildPrompt(question);
+  await navigator.clipboard.writeText(prompt).catch(() => {});
+  const el = document.getElementById('aiResponse');
+  el.innerHTML = `
+    <div style="font-size:0.8rem;line-height:1.75;color:var(--sand);">
+      <div style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone);margin-bottom:0.5rem;">コピーしました</div>
+      <div style="padding:0.65rem 0.8rem;background:var(--paper);font-size:0.76rem;color:var(--muted);margin-bottom:0.75rem;border-left:2px solid var(--divider);">${prompt}</div>
+      <a href="https://claude.ai" target="_blank"
+        style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:1px;">
+        Claude.ai を開く →
+      </a>
+    </div>`;
+}
+
+document.getElementById('aiAskBtn').addEventListener('click', () => {
+  if (currentOil) askAI('おすすめの使い方・ブレンドレシピ・注意事項を詳しく教えてください。');
+});
+document.getElementById('aiSendBtn').addEventListener('click', () => {
+  const q = document.getElementById('aiQuestionInput').value.trim();
+  if (q && currentOil) askAI(q);
+});
+document.getElementById('aiQuestionInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { const q = e.target.value.trim(); if (q && currentOil) askAI(q); }
+});
+
+document.querySelectorAll('[data-scent]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-scent]').forEach(b => {
+      b.classList.remove('active');
+      b.style.background = '';
+      b.style.borderColor = '';
+      b.style.color = '';
+    });
+    btn.classList.add('active');
+    const col = btn.dataset.color;
+    if (col) {
+      btn.style.background = col;
+      btn.style.borderColor = col;
+      btn.style.color = '#fff';
+    }
+    activeScentFilter = btn.dataset.scent; renderGrid();
+  });
+});
+document.querySelectorAll('[data-effect]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-effect]').forEach(b => {
+      b.classList.remove('active');
+      b.style.background = '';
+      b.style.borderColor = '';
+      b.style.color = '';
+    });
+    btn.classList.add('active');
+    const col = btn.dataset.color;
+    if (col) {
+      btn.style.background = col;
+      btn.style.borderColor = col;
+      btn.style.color = '#fff';
+    }
+    activeEffectFilter = btn.dataset.effect;
+    renderGrid();
+  });
+});
+document.querySelectorAll('[data-type]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); activeTypeFilter = btn.dataset.type; renderGrid();
+  });
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value; renderGrid();
+});
+
+renderGrid();
+</script>
+</body>
+</html>
